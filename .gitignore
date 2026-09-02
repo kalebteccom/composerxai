@@ -1,0 +1,13 @@
+node_modules/
+dist/
+.DS_Store
+
+# Working memory — ephemeral, never committed. Tracked spec lives in plans/.
+scratch/
+context/local/
+
+# 🔴 Private voice corpora. NEVER committed. The public repo ships defaults and the
+# extraction machinery, never anyone's voice.
+corpus/
+*.corpus/
+voice-profiles/private/
