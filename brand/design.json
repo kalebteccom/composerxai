@@ -1,0 +1,31 @@
+{
+  "name": "composerxai",
+  "slug": "composerxai",
+  "aria_label": "composerxai",
+  "description": "A compact mark for composerxai, the writing framework and prose linter for agent output.",
+  "story": "Two voices enter as curved strands, resolve at one junction into a single straight line, and the line ends in a full stop. The strands are the agent's register and the human's; the period is the sentence that no longer sounds generated.",
+  "source_svg": "composerxai-mark.svg",
+  "palette": {
+    "ink": "#16161A",
+    "paper": "#FAFAF7",
+    "paper_bright": "#FFFFFF",
+    "paper_shadow": "#DCE3E1",
+    "background_top": "#0D5C55",
+    "background_bottom": "#17877C",
+    "accent": "#12A594"
+  },
+  "geometry": {
+    "tile_radius_ratio": 0.22,
+    "favicon_mark_scale": 0.8,
+    "app_mark_scale": 0.78,
+    "avatar_mark_scale": 0.86,
+    "preview_margin_ratio": 0.098,
+    "preview_radius_ratio": 0.181
+  },
+  "material": "glass",
+  "license": {
+    "mode": "all-rights-reserved",
+    "holder": "Kalebtec",
+    "year": 2026
+  }
+}
