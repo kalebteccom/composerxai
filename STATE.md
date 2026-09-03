@@ -34,7 +34,8 @@ without telling the operator is not.
 
 - **One plugin, encapsulated.** Ships with everything needed. No dependency a user must install
   separately. Anything we need from elsewhere gets implemented or bundled, credited in `PRIOR_ART.md`.
-- **Open source**, `composerxai`, Kalebtec. Local until v1, no GitHub repo yet.
+- **Open source**, `composerxai`, Kalebtec. Published at
+  [kalebteccom/composerxai](https://github.com/kalebteccom/composerxai).
 - **Voice corpus is local**, three layers: shipped defaults, user tuning, extraction from the user's
   own prior art. 🔴 Rowin's corpus is private email and **must never reach the public repo**. The
   boundary is a property of the repo layout, not a habit.
@@ -112,7 +113,27 @@ Both surfaces ship. `npm run lint:self` is clean across all 29 shipped files and
 | `agents/` | composer, gap-extractor, voice-extractor, register-auditor |
 | `src/` | 22 rules, mode directive, whole-repo self-lint |
 
-Registered locally in `~/.claude/settings.json` as a directory marketplace. Nothing is published.
+Registered locally in `~/.claude/settings.json` as a directory marketplace, and published as a
+GitHub marketplace at [kalebteccom/composerxai](https://github.com/kalebteccom/composerxai).
+
+## 🔴 How this repo is published
+
+**`main` is never pushed to `origin`.** The public repo carries a curated subset on unrelated
+history, and local `main` holds material that must not ship: `research/07`, `research/08` and
+`scripts/weave-validation/` cite internal client repositories by path, and `corpus/` and
+`voice-profiles/private/` are gitignored for the same reason.
+
+The `public` branch tracks `origin/main`. To publish, check it out in a worktree, copy across only
+the files that should ship, commit there, and push. Never `git pull --rebase origin main` on
+`main`, and never force-push `main` to `origin`; both would replay the excluded files into public
+history.
+
+Install, for anyone reading this cold:
+
+```
+/plugin marketplace add kalebteccom/composerxai
+/plugin install composerxai@composerxai
+```
 
 Three defects the verification pass found and closed:
 
