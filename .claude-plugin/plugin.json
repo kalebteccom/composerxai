@@ -4,8 +4,8 @@
   "description": "Decide the audience, mode and register before writing, surface the gaps up front, then write in a voice that is not a machine's. Covers what an agent writes and how it reports to its operator.",
   "version": "0.1.0",
   "author": { "name": "Rowin Hernandez", "url": "https://github.com/rowinbot" },
-  "homepage": "https://github.com/rowinbot/composerxai",
-  "repository": "https://github.com/rowinbot/composerxai",
+  "homepage": "https://github.com/kalebteccom/composerxai",
+  "repository": "https://github.com/kalebteccom/composerxai",
   "license": "MIT",
   "keywords": ["writing", "documentation", "prose", "agent-communication", "specs", "voice"]
 }

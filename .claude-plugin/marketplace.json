@@ -1,6 +1,6 @@
 {
   "name": "composerxai",
-  "owner": { "name": "Rowin Hernandez", "url": "https://github.com/rowinbot" },
+  "owner": { "name": "Rowin Hernandez", "url": "https://github.com/kalebteccom" },
   "description": "A communication framework for agentic work.",
   "plugins": [
     {
@@ -10,7 +10,7 @@
       "description": "Decide audience, mode and register before writing. Surface gaps up front. Write without the machine register.",
       "version": "0.1.0",
       "license": "MIT",
-      "homepage": "https://github.com/rowinbot/composerxai"
+      "homepage": "https://github.com/kalebteccom/composerxai"
     }
   ]
 }
