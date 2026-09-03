@@ -1,5 +1,13 @@
 <!-- composerxai-lint mode=readme -->
 
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="brand/composerxai-mark-white-512.png">
+    <source media="(prefers-color-scheme: light)" srcset="brand/composerxai-mark-512.png">
+    <img alt="composerxai" src="brand/composerxai-mark-512.png" width="200">
+  </picture>
+</p>
+
 # composerxai
 
 composerxai is a Claude Code plugin that stops Claude writing like a machine. It adds two slash
