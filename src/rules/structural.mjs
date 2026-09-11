@@ -300,6 +300,54 @@ export default [
   },
 
   {
+    id: 'struct/virtue-contrast',
+    class: 'judgement',
+    category: 'structural',
+    severity: 'warning',
+    summary: 'X rather than Y, where Y never happened',
+    // Sibling to struct/negative-parallelism, which catches the "not just X but
+    // Y" family. This catches the quieter one: two clauses of near-identical
+    // length where the second names a thing the writer did NOT do. "I fixed the
+    // code rather than relaxing the assertions." "Measured rather than assumed."
+    // The sentence performs diligence instead of reporting, and it reads as
+    // insight while carrying none. The repair is always the same: keep the first
+    // clause, delete the contrast.
+    //
+    // Judgement rather than enforceable, and deliberately so. "The fee is
+    // consideration for results, not for time worked" is a real distinction
+    // doing real work in a contract. Frequency is the tell, so this gates on a
+    // rate and names the first hit for the writer to adjudicate.
+    source: "Rowin's voice rules, 'The virtue contrast'; sibling of struct/negative-parallelism",
+    threshold: 2.5,
+    modes: { account: { threshold: 4 }, instrument: { threshold: 4 }, direction: { threshold: 4 } },
+    minWords: 120,
+    check(doc, cfg) {
+      if (doc.words < this.minWords) return [];
+      const pats = [
+        /\b[\w'-]+(?:\s+[\w'-]+){0,6}\s+rather\s+than\s+[\w'-]+(?:\s+[\w'-]+){0,5}/gi,
+        /\b[\w'-]+(?:\s+[\w'-]+){0,6}\s+instead\s+of\s+[\w'-]+(?:\s+[\w'-]+){0,5}/gi,
+        /\b[\w'-]+(?:\s+[\w'-]+){0,4},\s+not\s+(?!only|just|merely|simply|because|to\b)[\w'-]+(?:\s+[\w'-]+){0,4}/gi,
+        /\b[\w'-]+(?:\s+[\w'-]+){0,4},\s+never\s+[\w'-]+(?:\s+[\w'-]+){0,4}/gi,
+      ];
+      const hits = [];
+      for (const re of pats) {
+        each(re, doc.masked, (m) => { hits.push({ start: m.index, end: m.index + m[0].length, text: m[0] }); });
+      }
+      hits.sort((a, b) => a.start - b.start || (b.end - b.start) - (a.end - a.start));
+      const uniq = [];
+      let covered = -1;
+      for (const h of hits) { if (h.start < covered) continue; covered = h.end; uniq.push(h); }
+      const rate = per1000(uniq.length, doc.words);
+      if (rate <= cfg.threshold) return [];
+      return [{
+        offset: uniq[0].start,
+        message: `${uniq.length} virtue contrasts, ${rate.toFixed(1)} per 1000 words (gate ${cfg.threshold}). Judgement: does the second half name something you actually did? If it names what you did not do, keep the first clause and delete the rest. e.g. "${uniq[0].text.trim().slice(0, 70)}"`,
+        metric: { rate, count: uniq.length, threshold: cfg.threshold },
+      }];
+    },
+  },
+
+  {
     id: 'struct/rule-of-three',
     class: 'judgement',
     category: 'structural',

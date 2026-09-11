@@ -3,8 +3,9 @@
 //
 // Zero runtime dependencies. Node built-ins only.
 
-import { readFileSync, readdirSync, statSync } from 'node:fs';
+import { readFileSync, readdirSync, statSync, realpathSync } from 'node:fs';
 import { join, extname, relative } from 'node:path';
+import { pathToFileURL } from 'node:url';
 import process from 'node:process';
 
 import { lintText, summarise, RULES, OMITTED_RULES, MODES, resolveMode } from './lint.mjs';
@@ -182,6 +183,15 @@ export function main(argv, io = process) {
   return summary.exitCode;
 }
 
-if (import.meta.url === `file://${process.argv[1]}`) {
+// Compare realpaths, not the raw argv path. Every installed dependency is
+// invoked through a symlink (`node_modules/.bin`, or the hoisted package link),
+// where `import.meta.url` resolves to the real file while `argv[1]` is the link
+// — so a direct comparison never matches and the CLI exits 0 having done
+// nothing. `pathToFileURL` additionally handles paths containing spaces, which
+// a `file://` template literal does not.
+const invokedAs = process.argv[1]
+  ? pathToFileURL(realpathSync(process.argv[1])).href
+  : undefined;
+if (import.meta.url === invokedAs) {
   process.exitCode = main(process.argv.slice(2));
 }
